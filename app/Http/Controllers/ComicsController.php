@@ -25,7 +25,7 @@ class ComicsController extends Controller
      */
     public function create()
     {
-        //
+        return view('comics.create');
     }
 
     /**
@@ -36,7 +36,25 @@ class ComicsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $request->validate([
+            'title' => 'required|unique:comics|max:50',
+            'type' => 'required|max:20'
+        ]);
+
+        $new_comics = new Comics();
+        // $new_comics->title = $data['title'];
+        // $new_comics->description = $data['description'];
+        // $new_comics->thumb = $data['thumb'];
+        // $new_comics->price = $data['price'];
+        // $new_comics->series = $data['series'];
+        // $new_comics->sale_date = $data['sale_date'];
+        // $new_comics->type = $data['type'];
+        $new_comics->fill($data);
+        $new_comics->save();
+
+        return redirect()->route('comics.index');
     }
 
     /**
@@ -45,9 +63,9 @@ class ComicsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Comics $comics)
     {
-        //
+        return view('comics.show', compact('comics'));
     }
 
     /**
@@ -58,7 +76,14 @@ class ComicsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comics = Comics::findORFail($id);
+        return view('comics.edit', compact('comics'));
+
+        // OPPURE 
+        // if($dettaglio_comics) {
+        //     return view('comics.edit', compact('comics'));
+        // }
+        // abort(404);
     }
 
     /**
@@ -68,9 +93,12 @@ class ComicsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Comics $comics)
     {
-        //
+        $data = $request->all();
+        $comics->update($data);
+        return redirect()->route('comics.index', $comics['id']); 
+        // l'aggiunta di '$comics['id']' serve per reindirizzare la pagina al dettaglio dell'elemento modificato, e quindi si puo anche tralasciare;
     }
 
     /**
@@ -79,8 +107,9 @@ class ComicsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comics $comics)
     {
-        //
+        $comics->delete();
+        return redirect()->route('$comics.index');
     }
 }

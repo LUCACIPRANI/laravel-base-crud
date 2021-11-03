@@ -12,10 +12,10 @@
                     <a class="nav-link" href="{{ route('home-page') }}">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Enter a new Comic</a>
+                    <a class="nav-link" href="{{ route('comics.index') }}">Comics List</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('comics.index') }}">Comics List</a>
+                    <a class="nav-link" href="{{ route('comics.create')}}">Enter a new Comic</a>
                   </li>
                 </ul>
               </div>
