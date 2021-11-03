@@ -63,9 +63,11 @@ class ComicsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Comics $comics)
+    public function show($id)
     {
+        $comics = Comics::find($id);
         return view('comics.show', compact('comics'));
+
     }
 
     /**
@@ -93,11 +95,12 @@ class ComicsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comics $comics)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
+        $comics = Comics::find($id);
         $comics->update($data);
-        return redirect()->route('comics.index', $comics['id']); 
+        return redirect()->route('comics.index', $comics['id']);
         // l'aggiunta di '$comics['id']' serve per reindirizzare la pagina al dettaglio dell'elemento modificato, e quindi si puo anche tralasciare;
     }
 
@@ -107,9 +110,10 @@ class ComicsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comics $comics)
+    public function destroy($id)
     {
+        $comics = Comics::find($id);
         $comics->delete();
-        return redirect()->route('$comics.index');
+        return redirect()->route('comics.index');
     }
 }

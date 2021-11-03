@@ -1,0 +1,46 @@
+@mixin center($type: 'both') {
+    display: flex;
+
+    @if $type == 'vertical'{
+        align-items: center;
+    }@else if $type == 'horizontal'{
+        justify-content: center;
+    }@else if $type == 'both'{
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@mixin centerColumn($type: 'both') {
+    display: flex;
+    flex-direction: column;
+
+    @if $type == 'vertical'{
+        justify-content: center;
+    }@else if $type == 'horizontal'{
+        align-items: center;
+    }@else if $type == 'both'{
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@mixin flexCenter($type: 'both') {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+@mixin flexStart($type: 'start') {
+    display: flex;
+    align-items: center;
+    padding-left: 190px;
+}
+
+
+@mixin hoverIcons($type: 'hover') {
+    &:hover{
+        cursor: pointer;
+        opacity: 0.7;
+    }
+}
